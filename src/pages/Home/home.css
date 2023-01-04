@@ -1,0 +1,32 @@
+.container-home {
+    display: flex;
+  
+}
+.container-home ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-Pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 250px;
+    height: 280px;
+    background-color: #CCC;
+
+    margin: 10px;
+}
+.card-Pokemon {
+    display: flex;
+}
+
+.card-Pokemon strong {
+    font-size: 24px;
+}
+.card-Pokemon img{ 
+    width: 200px;
+    border:1px solid black;
+    background-color: aqua;
+}

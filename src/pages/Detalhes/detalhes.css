@@ -1,0 +1,24 @@
+.container-detalhes {
+    display: flex;
+    background-color: aqua;
+    align-items: center;
+    justify-content: center;
+    height: 89vh;
+}
+
+.card-detalhes {
+    width: 500px;
+    background-color: #CCC;
+}
+.card-detalhes img {
+    height: 450px;
+}
+
+.card-detalhes .status  {
+    display: grid;  
+    grid-template-columns: 50% 1fr;
+}
+
+.card-detalhes .status strong{
+ color: blue;
+}
