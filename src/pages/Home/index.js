@@ -21,21 +21,24 @@ function Home(){
             //     }
             // })    
             //console.log(response.data.results)
+
+          
            
             let endpoints = [];
 
-            for(let i = 1;i < 200; i++){
+            for(let i = 1;i <= 200; i++){
                 endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`)
             }
             
             const response = axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((res) => setPokemons(res))
-            
+
         }
         console.log(pokemons)
         loadPokemon()
 
     }, [])
 
+   
     
     return(
         <div>
