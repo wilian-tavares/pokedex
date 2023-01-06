@@ -27,24 +27,44 @@ function Detalhes() {
   return (
     <div className='container-detalhes'>
       <div className='card-detalhes'>
-        <h1>Detalhes do Pokemon {_.get(pokemon, 'name')}</h1>
-        <strong>{_.get(pokemon, 'name')}</strong>
+        <h1>{_.get(pokemon, 'name')}</h1>
+      
         <img src={_.get(pokemon, 'sprites.front_default')} alt={_.get(pokemon, 'name')}></img>
 
             {/* //DEBUGGER */}
             {console.log(pokemon)}
 
-        <div className='status'>
-          {_.map(_.get(pokemon, 'stats'), (statData, index) => (
-          <div key={index}>
-            <strong>{statData.stat.name} = {statData.base_stat}</strong><br></br>
+
+        <div className='info'>
+
+          <div className='ability'>
+            {
+              _.map(_.get(pokemon, 'abilities'), (abilityData ,index) => (
+              <div className='item' key={index}>
+                <strong>Ability: {abilityData.ability.name}</strong>
+              </div>
+              ))
+            }
           </div>
-          ))}
-          {_.map(_.get(pokemon, 'types.type'), (typeData, index) => (
-          <div key={index}>
-            <strong>{typeData.name}</strong>
+          {/*Fim Abilidades*/ }
+
+          <div className='status'>
+            {_.map(_.get(pokemon, 'stats'), (statData, index) => (
+            <div className='item' key={index}>
+              <strong>{statData.stat.name} = {statData.base_stat}</strong><br></br>
+            </div>
+            ))}
+            <strong className='item'>Weight: {_.get(pokemon, 'weight') /10}kg</strong><br></br>
           </div>
-          ))}
+
+          <div className='types'>
+            {_.map(_.get(pokemon, 'types'), (typeData, index) => (
+              <div className='item' key={index}>
+                <strong >TYPE: {typeData.type.name}</strong><br></br>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </div>

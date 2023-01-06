@@ -9,16 +9,44 @@
 .card-detalhes {
     width: 500px;
     background-color: #CCC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .card-detalhes img {
     height: 450px;
 }
 
-.card-detalhes .status  {
-    display: grid;  
-    grid-template-columns: 50% 1fr;
+.card-detalhes .info  {
+    width: 100%; 
+    padding: 10px;
+    background-color: #8d8d8d;
 }
 
-.card-detalhes .status strong{
- color: blue;
+.card-detalhes .info .item {
+   
+   margin: 5px 10px;
+}
+.card-detalhes .info .ability,
+.card-detalhes .info .status,
+.card-detalhes .status .types {
+    width:  100%;
+    display: flex;
+}
+
+.card-detalhes .info .ability {
+ 
+ 
+    
+}
+
+.card-detalhes .info .status { 
+    display: grid;  
+    grid-template-columns: 50% 1fr; 
+}
+
+.card-detalhes .status .types {
+   
+  
+
 }

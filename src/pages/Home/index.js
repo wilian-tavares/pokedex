@@ -5,25 +5,17 @@ import api from '../../Services/api';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import _ from 'lodash';
 
 function Home(){
 
     const [pokemons, setPokemons] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {       
 
         async function loadPokemon(){
-            //const response = await api.get(`pokemon?limit=200`)        
-
-            // const response = await api.get(`pokemon`, {
-            //     params: {
-            //         limit: 200,
-            //     }
-            // })    
-            //console.log(response.data.results)
-
-          
-           
+  
             let endpoints = [];
 
             for(let i = 1;i <= 200; i++){
@@ -31,14 +23,18 @@ function Home(){
             }
             
             const response = axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((res) => setPokemons(res))
-
+           
+            
+            setLoading(false)
         }
-        console.log(pokemons)
+        //console.log(pokemons)
         loadPokemon()
 
     }, [])
 
-   
+   if(loading){
+        return( <h1>CARREGANDO TODOS OS POKEMONS... AGUARDE</h1>)
+   }
     
     return(
         <div>
@@ -47,7 +43,12 @@ function Home(){
         
              <div className='container-home'>
                 <ul>
-                    { 
+                    {  
+
+                      
+                        
+                    
+
                         pokemons.map((pokemon) => {
                             return(
                                     <li key={pokemon.data.id} >
