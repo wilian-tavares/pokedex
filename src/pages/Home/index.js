@@ -1,16 +1,14 @@
 import './home.css';
 import { useState, useEffect } from 'react';
-
-import api from '../../Services/api';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
-import _ from 'lodash';
+import _, { find, map } from 'lodash';
 
 function Home(){
-
     const [pokemons, setPokemons] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const [searchPokemonId, setSearchPokemonId] = useState('');
 
     useEffect(() => {       
 
@@ -23,7 +21,7 @@ function Home(){
             }
             
             const response = axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((res) => setPokemons(res))
-           
+            // {console.log('valor '+ findPokemon.value)}
             
             setLoading(false)
         }
@@ -35,20 +33,41 @@ function Home(){
    if(loading){
         return( <h1>CARREGANDO TODOS OS POKEMONS... AGUARDE</h1>)
    }
+
+
     
     return(
-        <div>
+        <div className='.container-home'>
+            <div className="header">
+
+                <div className="logo">
+                    <Link to='/'>Pokedex</Link>
+                </div>
+
+                <div className='search'>
+                    <input className='shield-text' onChange={(e) => setSearchPokemonId(e.target.value)} list='Pokemons' placeholder='Find by ID or Name'></input>
+                    
+                    <datalist id='Pokemons'>     
+                    {
+                        pokemons.map((pokemon) => {
+                            return(                           
+                                <option key={pokemon.data.id}  value={pokemon.data.name}></option>  
+                            )
+                        })
+                    }                      
+                    </datalist>      
+                    <button className='button-search'>
+                        <Link to={`/detalhes/${searchPokemonId}`}>SEARCH</Link>
+                    </button>    
+
+                </div>
+            </div> 
 
             <h1>HOME</h1>
         
              <div className='container-home'>
                 <ul>
                     {  
-
-                      
-                        
-                    
-
                         pokemons.map((pokemon) => {
                             return(
                                     <li key={pokemon.data.id} >
@@ -65,6 +84,7 @@ function Home(){
                     } 
                 </ul>
             </div> 
+        
         </div>
     )
 }

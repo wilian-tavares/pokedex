@@ -1,6 +1,49 @@
+.header {
+    background-color: brown;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: rgb(224, 216, 104);
+}
+
+.header a {
+    color: rgb(224, 216, 104);
+    font-size: 24px;
+}
+
+.header .search{}
+
+.header .search .shield-text {
+    width: 250px;
+    height: 40px;
+    margin: 10px;
+    padding-left: 10px;
+    border-radius: 8px;
+}
+
+.header .search .button-search {
+    cursor: pointer;
+    background-color: green;
+    border-radius: 8px;
+    height: 40px;
+    width: 150px;
+}
+.header .search .button-search:hover {
+    background-color: #15ff00;
+}
+
+
+
+
+
+
+
+
+
 .container-home {
     display: flex;
-  
+    flex-direction: column; 
 }
 .container-home ul {
     display: flex;
