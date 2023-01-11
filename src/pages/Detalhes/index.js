@@ -1,7 +1,7 @@
 import './detalhes.css';
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-
+import mochila from '../../images/bag.png'
 import _ from 'lodash';
 
 import api from '../../Services/api';
@@ -11,6 +11,25 @@ function Detalhes() {
   const [pokemon, setPokemon] = useState({});
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+
+  function AdicionarFavoritos(){
+
+    const minhaMochila = localStorage.getItem("@pokebola");
+
+    let pokemonSalvos = JSON.parse(minhaMochila) || [];
+
+    const hasPokemon = pokemonSalvos.some((pokemonSalvo) => pokemonSalvo.id === pokemon.id)
+
+    if(hasPokemon) {
+      alert('pokemon já esta na lista');
+      return;
+    }
+
+      pokemonSalvos.push(pokemon);
+      localStorage.setItem("@pokebola", JSON.stringify(pokemonSalvos))
+      alert('pokemon salvo com sucesso')
+
+  }
 
   useEffect(() => {
     async function loadDetalhes() {
@@ -32,6 +51,11 @@ function Detalhes() {
       <div className="logo">
           <Link to='/'>Pokedex</Link>
       </div>
+      <div className="logo">
+          <Link to='/mochila'>
+            <img src={mochila} />
+          </Link>
+      </div>
 
       
 
@@ -44,7 +68,7 @@ function Detalhes() {
           <img src={_.get(pokemon, 'sprites.front_default')} alt={_.get(pokemon, 'name')}></img>
 
               {/* //DEBUGGER */}
-              {console.log(pokemon)}
+              {/* {console.log(pokemon)} */}
 
 
           <div className='info'>
@@ -79,7 +103,12 @@ function Detalhes() {
 
           </div>
         </div>
+        {/* inicio button favoritos*/}
+        <div className='favoritos'>
+          <button onClick={AdicionarFavoritos} className='button-favorito'>Adicionar a Sacola</button>
+        </div>
       </div>
+      
     </div> 
   )
 }

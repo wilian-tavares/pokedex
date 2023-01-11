@@ -1,8 +1,9 @@
 .container-detalhes {
     display: flex;
-    background-color: aqua;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    background-color: aqua;
     height: 89vh;
 }
 
@@ -24,7 +25,6 @@
 }
 
 .card-detalhes .info .item {
-   
    margin: 5px 10px;
 }
 .card-detalhes .info .ability,
@@ -34,19 +34,19 @@
     display: flex;
 }
 
-.card-detalhes .info .ability {
- 
- 
-    
-}
 
 .card-detalhes .info .status { 
     display: grid;  
     grid-template-columns: 50% 1fr; 
 }
-
-.card-detalhes .status .types {
-   
-  
-
+.container-detalhes .favoritos .button-favorito {
+        cursor: pointer;
+        background-color: #F22F2B;
+        height: 50px;
+        width: 500px;
+        color: #FFF;
+        font-size: 20px;
+}
+.container-detalhes .favoritos .button-favorito:hover {
+    background-color: #f22e2bc0;
 }

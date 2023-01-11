@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import _, { find, map } from 'lodash';
-
+import mochila from '../../images/bag.png'
 function Home(){
     const [pokemons, setPokemons] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,7 +16,7 @@ function Home(){
   
             let endpoints = [];
 
-            for(let i = 1;i <= 200; i++){
+            for(let i = 1;i <= 905; i++){
                 endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`)
             }
             
@@ -60,6 +60,12 @@ function Home(){
                         <Link to={`/detalhes/${searchPokemonId}`}>SEARCH</Link>
                     </button>    
 
+                </div>
+
+                <div>
+                    <Link to='/mochila'>
+                        <img  src={mochila} alt='mochila' />
+                    </Link>
                 </div>
             </div> 
 

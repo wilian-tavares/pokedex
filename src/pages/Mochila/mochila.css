@@ -1,0 +1,61 @@
+.container-mochila {
+    display: flex;
+    
+}
+
+.container-mochila ul  {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+.container-mochila   .card-pokemon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+    border: 1px solid red;
+    background-color: #CCC;
+    width: 350px;
+    height: 300px;
+
+    padding: 10px;
+    margin: 10px;
+}
+
+.container-mochila .card-pokemon strong {
+    font-size: 24px;
+}
+.container-mochila .card-pokemon img{
+    padding: 10px;
+    width: 150px;
+    border:1px solid black;
+    background-color: aqua;
+}
+.container-mochila .card-pokemon .buttons {
+    margin: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.container-mochila  button {
+    cursor: pointer;
+    font-size: 24px;
+    margin-left: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.5s;
+}
+.container-mochila  button:hover {
+    transform: scale(1.1);
+}
+.container-mochila  .button-detalhes {
+    background-color:  black;
+    color: #FFF;
+}
+
+.container-mochila  .button-remover {
+    background-color: red;
+    color: yellow;
+}
