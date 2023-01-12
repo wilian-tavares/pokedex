@@ -50,3 +50,14 @@
 .container-detalhes .favoritos .button-favorito:hover {
     background-color: #f22e2bc0;
 }
+
+
+@media(max-width: 600px) {
+    .container-detalhes .card-detalhes {
+        width: 400px;
+        height: 500px;
+    }
+    .container-detalhes .favoritos .button-favorito {
+        width: 400px
+    }
+}

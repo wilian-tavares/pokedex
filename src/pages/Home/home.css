@@ -16,7 +16,7 @@
     width: 50px;
 }
 
-.header .search{}
+
 
 .header .search .shield-text {
     width: 250px;
@@ -46,11 +46,12 @@
 
 
 .container-home {
-    display: flex;
+    display: flex;   
     flex-direction: column; 
 }
 .container-home ul {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -74,4 +75,34 @@
     width: 200px;
     border:1px solid black;
     background-color: aqua;
+}
+
+
+
+
+/*  RESPONSIVIDADE */
+
+@media(max-width: 850px) {
+    .header .search {
+        display: flex;
+        flex-direction: column; 
+    }
+
+    .header .search .shield-text,
+    .header .search .button-search {
+        width: 200px;
+    }
+}
+
+@media(max-width: 850px) {
+    .header .search .shield-text,
+    .header .search .button-search {
+        width: 150px;
+        display: flex;
+        align-self: center;
+    }
+    .header .search .button-searc {
+        border: 1px solid white;
+        margin: 20px;
+    }
 }

@@ -5,12 +5,13 @@
 
 .container-mochila ul  {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
 
 
-.container-mochila   .card-pokemon{
+.container-mochila .card-pokemon{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,3 +60,5 @@
     background-color: red;
     color: yellow;
 }
+
+
