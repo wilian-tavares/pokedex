@@ -3,12 +3,30 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import _, { find, map } from 'lodash';
-import mochila from '../../images/bag.png'
+import mochila from '../../images/bag.png';
+import CardPokemon from '../../components';
+
 function Home(){
     const [pokemons, setPokemons] = useState([]);
     const [loading, setLoading] = useState(true);
-
     const [searchPokemonId, setSearchPokemonId] = useState('');
+
+    const [itensPerPage, setItensPerPage] = useState(20)
+    const [currentPage, setCurrentPage] = useState(0)
+    const pages = Math.ceil(pokemons.length / itensPerPage)
+    const startIndex = currentPage * itensPerPage;
+    const endIndex = startIndex + itensPerPage;
+    const currentItens = pokemons.slice(startIndex, endIndex)
+    
+
+    function onNext(){
+        setCurrentPage(currentPage +1)
+      }
+
+      function onPrevious(){
+         setCurrentPage(currentPage -1)
+      }
+
 
     useEffect(() => {       
 
@@ -16,16 +34,13 @@ function Home(){
   
             let endpoints = [];
 
-            for(let i = 1;i <= 905; i++){
+            for(let i = 1;i <= 1010; i++){
                 endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`)
             }
             
-            const response = axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((res) => setPokemons(res))
-            // {console.log('valor '+ findPokemon.value)}
-            
+            const response = axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((res) => setPokemons(res))            
             setLoading(false)
         }
-        //console.log(pokemons)
         loadPokemon()
 
     }, [])
@@ -33,11 +48,9 @@ function Home(){
    if(loading){
         return( <h1>CARREGANDO TODOS OS POKEMONS... AGUARDE</h1>)
    }
-
-
     
     return(
-        <div className='.container-home'>
+        <div className='container-home'>
             <div className="header">
 
                 <div className="logo">
@@ -64,34 +77,68 @@ function Home(){
 
                 <div>
                     <Link to='/mochila'>
-                        <img  src={mochila} alt='mochila' />
+                        <img  src={mochila}  alt='mochila' />
                     </Link>
                 </div>
             </div> 
 
-            <h1>HOME</h1>
-        
-             <div className='container-home'>
-                <ul>
-                    {  
-                        pokemons.map((pokemon) => {
+            <div className='container-contents'>
+
+                    <h1>HOME</h1>
+            
+                    <div className='navigation'>
+                        <button
+                            className='buttonPages'
+                            value={Number(currentPage)}
+                            disabled={Number(currentPage) === 0}
+                            onClick={onPrevious}>
+                                {'<'}
+                        </button>
+                        
+
+                        {Array.from(Array(pages), (item, index) => {
                             return(
-                                    <li key={pokemon.data.id} >
-                                        <Link  to={`/detalhes/${pokemon.data.id}`}>
-                                            <article className='card-Pokemon'>
-                                                <strong>{pokemon.data.name}</strong>
-                                                <img src={pokemon.data.sprites.front_default} alt={pokemon.name}></img>
-                                                <strong >ID: {pokemon.data.id}</strong>
-                                            </article>
-                                        </Link>
-                                    </li>
+                                <button 
+                                        className='buttonPages'
+                                        style={ index === currentPage ? {backgroundColor: "green"} : null}
+                                        key={index} 
+                                        value={index} 
+                                        onClick={(e) => setCurrentPage(Number(e.target.value))}
+                                        >
+                                        {index +1}
+                                    </button>
                                 )
-                        })
-                    } 
-                </ul>
-            </div> 
+                        })}
+
+                        <button
+                            className='buttonPages' 
+                            disabled={Number(currentPage) === pages - 1}
+                            onClick={onNext}>
+                                {'>'}
+                        </button>   
+
+                        <ul>
+                            {  
+                                currentItens.map((pokemon) => {
+                                    return(       
+                                        <li key={pokemon.data.id} >
+                                            <CardPokemon 
+                                                Name={pokemon.data.name}
+                                                Image={pokemon.data.sprites.front_default}
+                                                Id={pokemon.data.id}
+                                            />                                 
+                                        </li>                                             
+                                    )                              
+                                })
+                            } 
+                        </ul>
+
+                    </div>
+            </div>
+
+        </div> 
+            
         
-        </div>
     )
 }
 
