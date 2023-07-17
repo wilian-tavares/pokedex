@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import _, { find, map } from 'lodash';
 import mochila from '../../images/bag.png';
-import CardPokemon from '../../components';
+import CardPokemon from '../../components/CardPokemon';
 
 function Home(){
     const [pokemons, setPokemons] = useState([]);
