@@ -19,7 +19,7 @@ function Home() {
     setLoading(true);
 
     try {
-      const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=1010');
+      const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100000');
       const { results } = response.data;
       const pokemonDataPromises = results.map(({ url }) => axios.get(url));
       const pokemonDataResponses = await axios.all(pokemonDataPromises);
