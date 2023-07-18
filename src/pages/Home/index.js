@@ -2,7 +2,6 @@ import './home.css';
 import { useState, useEffect, Suspense, lazy } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import _, { find, map } from 'lodash';
 import mochila from '../../images/bag.png';
 
 const CardPokemon = lazy(() => import('../../components/CardPokemon'));
@@ -102,7 +101,7 @@ function Home() {
 
         <div>
           <Link to="/mochila">
-            <img src={mochila} alt="mochila" />
+            <img src={mochila} width={50} height={50} alt="mochila" />
           </Link>
         </div>
       </div>

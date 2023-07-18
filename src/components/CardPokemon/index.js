@@ -7,7 +7,7 @@ import './cardPokemon.css';
         
             <Link to={`/detalhes/${Id}`} className="cardPokemon">
                 <strong>{Name}</strong>
-                <img src={Image} alt={Id} />
+                <img src={Image} alt={Id} width={200} height={200} />
                 <strong>ID: {Id}</strong>
             </Link>
        
