@@ -19,14 +19,11 @@ function Home() {
     setLoading(true);
 
     try {
-      let endpoints = [];
-
-      for (let i = 1; i <= 1010; i++) {
-        endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`);
-      }
-
-      const responses = await axios.all(endpoints.map(endpoint => axios.get(endpoint)));
-      const data = responses.map(response => response.data);
+      const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=1010');
+      const { results } = response.data;
+      const pokemonDataPromises = results.map(({ url }) => axios.get(url));
+      const pokemonDataResponses = await axios.all(pokemonDataPromises);
+      const data = pokemonDataResponses.map(response => response.data);
 
       setPokemons(data);
       setVisiblePokemons(data.slice(0, itensPerPage));
@@ -43,9 +40,7 @@ function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight
-      ) {
+      if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
         loadMorePokemons();
       }
     };
@@ -90,9 +85,9 @@ function Home() {
           ></input>
 
           <datalist id="Pokemons">
-            {pokemons.map((pokemon) => {
-              return <option key={pokemon.id} value={pokemon.name}></option>;
-            })}
+            {pokemons.map((pokemon) => (
+              <option key={pokemon.id} value={pokemon.name} />
+            ))}
           </datalist>
           <button className="button-search" onClick={handleSearch}>
             <Link to={`/detalhes/${searchPokemonId}`}>SEARCH</Link>
