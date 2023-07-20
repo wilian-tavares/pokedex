@@ -13,6 +13,7 @@ function RouteApp() {
                 <Route path={'/mochila'} element={ <Mochila /> } />
 
                 <Route path='*' element={ <Erro /> } />
+
             </Routes>
         </BrowserRouter>
     )

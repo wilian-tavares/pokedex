@@ -11,22 +11,23 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [searchPokemonId, setSearchPokemonId] = useState('');
 
-  const [itensPerPage, setItensPerPage] = useState(20);
   const [currentPage, setCurrentPage] = useState(0);
-  const [visiblePokemons, setVisiblePokemons] = useState([]);
+  const [limit, setLimit] = useState(20);
+  const [offset, setOffset] = useState(0);
+
+ 
 
   const fetchPokemons = async () => {
     setLoading(true);
 
     try {
-      const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100000');
+      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
       const { results } = response.data;
       const pokemonDataPromises = results.map(({ url }) => axios.get(url));
       const pokemonDataResponses = await axios.all(pokemonDataPromises);
       const data = pokemonDataResponses.map(response => response.data);
 
       setPokemons(data);
-      setVisiblePokemons(data.slice(0, itensPerPage));
       setLoading(false);
     } catch (error) {
       console.log('Error fetching pokemons:', error);
@@ -34,40 +35,34 @@ function Home() {
     }
   };
 
+  const handlePreviousPage = () => {
+    if (currentPage > 0 ) {
+        setCurrentPage((prevPage) => prevPage - 1);
+        setOffset(offset - 20);
+    }
+};
+
+const handleNextPage = () => {
+  setCurrentPage((prevPage) => prevPage + 1);
+  setOffset(offset + 20);
+}
+
   useEffect(() => {
     fetchPokemons();
-  }, []);
+  }, [currentPage, limit, offset]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-        loadMorePokemons();
-      }
-    };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [visiblePokemons]);
 
-  const loadMorePokemons = () => {
-    const nextPage = currentPage + 1;
-    const startIndex = nextPage * itensPerPage;
-    const endIndex = startIndex + itensPerPage;
-    const newVisiblePokemons = pokemons.slice(0, endIndex);
-    setVisiblePokemons(newVisiblePokemons);
-    setCurrentPage(nextPage);
-  };
+  
 
-  const handleSearch = () => {
-    // Implement your search logic here
-    console.log('Searching for Pokemon:', searchPokemonId);
-  };
+  // const handleSearch = () => {
+  //   // Implement your search logic here
+  //   console.log('Searching for Pokemon:', searchPokemonId);
+  // };
 
-  if (loading) {
-    return <h1>CARREGANDO TODOS OS POKEMONS... AGUARDE</h1>;
-  }
+  // if (loading) {
+  //   return <h1>CARREGANDO TODOS OS POKEMONS... AGUARDE</h1>;
+  // }
 
   return (
     <div className="container-home">
@@ -89,7 +84,7 @@ function Home() {
               <option key={pokemon.id} value={pokemon.name} />
             ))}
           </datalist>
-          <button className="button-search" onClick={handleSearch}>
+          <button className="button-search" >
             <Link to={`/detalhes/${searchPokemonId}`}>SEARCH</Link>
           </button>
         </div>
@@ -104,9 +99,14 @@ function Home() {
       <div className="container-contents">
         <h1>HOME</h1>
 
-        <div className="navigation">
+        <div className='container-buttons'>
+        <button onClick={handlePreviousPage}>Anterior</button>
+        <button onClick={handleNextPage}>Próximo</button>
+        </div>
+
+        <div className="container-pokemons">
           <ul>
-            {visiblePokemons.map((pokemon) => (
+            {pokemons.map((pokemon) => (
               <Suspense fallback={<p>Ainda carregando...</p>} key={pokemon.id}>
                 <li>
                   <CardPokemon
